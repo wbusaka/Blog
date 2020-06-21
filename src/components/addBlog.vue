@@ -22,7 +22,6 @@
                 <input type="checkbox" value="cheese" v-model="blog.categories"/>
             </div>
 
-            <button @click.prevent="post"> Add Blog </button>
         </form>
 
         <div v-if="submitted">
@@ -34,6 +33,8 @@
             <option v-for="author in authors"> {{ author }}</option>
         </select>
 
+            <button @click.prevent="post"> Add Blog </button>
+            
         <div id="preview">
             <h3>Preview Blog</h3>
             <p>Blog Title: {{blog.title}}</p>
@@ -70,11 +71,7 @@ export default {
 
     methods: {
         post(){
-            this.$http.post('https://jsonplaceholder.typicode.com/posts',{
-                title: this.blog.title,
-                body: this.blog.content,
-                userId: 1
-            }).then(function(data){
+            this.$http.post('https://my-blog-f8409.firebaseio.com/posts.json',this.blog).then(function(data){
                 console.log(data)
                 this.submitted = true
             })
